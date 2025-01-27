@@ -1,0 +1,6 @@
+VGG16 - Validation Loss: 3.1032955646514893, Validation Accuracy: 0.25564631819725037
+ResNet50 - Validation Loss: 4.705803871154785, Validation Accuracy: 0.020903412252664566
+MobileNetV2 - Validation Loss: 2.2696259021759033, Validation Accuracy: 0.44762134552001953
+
+
+

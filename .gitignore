@@ -169,3 +169,15 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Ignore folders named 'capstone2'  
+capstone2/  
+  
+# Ignore folders named 'stanford-dogs-dataset-copy'  
+stanford-dogs-dataset-copy/  
+  
+# Ignore files named 'stanford-dogs-dataset.zip'  
+stanford-dogs-dataset.zip  
+  
+# Ignore all files with the .h5 extension  
+*.h5 
