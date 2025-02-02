@@ -112,3 +112,13 @@ The API leverages FastAPI to predict dog breeds from image URLs.
 To predict a dog breed, send a POST request to `/predict-breed` with the image URL included in the request body.
 
 This setup ensures efficient and scalable deployment of the dog breed classification service, enabling accurate real-time predictions.
+
+    ```bash
+    docker build -t capstone2/aj-fastapi-app .
+    docker run -d -p 8000:8000 capstone2/aj-fastapi-app:latest
+    curl -X POST "http://127.0.0.1:8000/predict-breed" \
+        -H "Content-Type: application/json" \
+        -d '{"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/1600px-Cute_dog.jpg"}'
+    curl -X POST "http://127.0.0.1:8000/predict-breed" \
+        -H "Content-Type: application/json" \
+        -d '{"url": "https://images.unsplash.com/photo-1507146426996-ef05306b995a""}'
