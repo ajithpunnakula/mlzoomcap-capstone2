@@ -4,6 +4,11 @@
 
 This project aims to classify dog breeds using a predefined dataset with images of various dog breeds. The project involves data preparation, model training using established architectures, and deploying a prediction API using FastAPI. The application is further containerized using Docker for ease of deployment.
 
+## Dataset
+
+- **Source Dataset:** [Stanford Dogs Dataset](https://www.kaggle.com/datasets/jessicali9530/stanford-dogs-dataset)
+- **Description:** The dataset includes a variety of dog breeds represented with numerous images for each breed. The dataset is prepared by splitting the data into training and validation sets in a reproducible manner using Python scripts.
+
 ## How to test code
 
 ### Environment Setup
@@ -83,23 +88,16 @@ This tests the dog breed of this image - *https://images.unsplash.com/photo-1507
    Invoke-RestMethod -Uri "http://127.0.0.1:8000/predict-breed" -Method Post -Body '{"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/1600px-Cute_dog.jpg"}' -ContentType "application/json"
    ```
 
-
-## Dataset
-
-- **Source Dataset:** [Stanford Dogs Dataset](https://www.kaggle.com/datasets/jessicali9530/stanford-dogs-dataset)
-- **Description:** The dataset includes a variety of dog breeds represented with numerous images for each breed. The dataset is prepared by splitting the data into training and validation sets in a reproducible manner using Python scripts.
-
-
-## Usage
+## How to run the training code
 
 ### Download dataset and unzip
-  - Download using the following curl command:
+  - Download using the following curl command or
     ```bash
     #!/bin/bash
     curl -L -o ~/Downloads/stanford-dogs-dataset.zip\
       https://www.kaggle.com/api/v1/datasets/download/jessicali9530/stanford-dogs-dataset
     ```
-  - Download directly from kaggle website:
+  - Download directly from kaggle website
     You can access the Stanford Dogs Dataset on Kaggle using the following link: [Stanford Dogs Dataset](https://www.kaggle.com/datasets/jessicali9530/stanford-dogs-dataset)
 
   - unzip the dataset in the same folder as the cloned code. Note that I have added a **-copy** at the end of the extracted folder
@@ -236,7 +234,7 @@ The application is built using FastAPI, a modern web framework for building APIs
 ### Usage Example
 
 To test the endpoint, send a POST request to `/predict-breed` with the following JSON payload format:
-
+(use the test instructions above, the below is just for quick reference)
 ```bash
 curl -X POST "http://127.0.0.1:8000/predict-breed" \
     -H "Content-Type: application/json" \
