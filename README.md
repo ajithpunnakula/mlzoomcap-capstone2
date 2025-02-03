@@ -4,32 +4,65 @@
 
 This project aims to classify dog breeds using a predefined dataset with images of various dog breeds. The project involves data preparation, model training using established architectures, and deploying a prediction API using FastAPI. The application is further containerized using Docker for ease of deployment.
 
+## How to test code
+
+### Environment Setup
+
+To run this project, you'll need to set up your environment as follows:
+
+1. **Ensure Python 3.11.* is Installed** 
+   - Verify Python version:
+     ```bash
+     python --version
+     ```
+  Note: if running on mac, python 3.12 does not work please use python 3.11 to test this
+
+2. **Clone the GitHub Repository**
+   - Clone the repository to your local machine:
+     ```bash
+     git clone git@github.com:ajithpunnakula/mlzoomcap-capstone2.git
+     ```
+
+3. **Install Python Dependencies**
+   - Use pip to install necessary packages:
+      Mac/Linux: 
+        ```bash
+              pip install -r requirements.txt
+        
+      Windows:
+      ```bash
+            pip install -r requirements_windows.txt
+            
+
+### how to build the docker image
+- To build docker image locally and test above use
+
+    ```bash
+        docker build -t capstone2/aj-fastapi-app .
+        docker run -d -p 8000:8000 capstone2/aj-fastapi-app:latest
+
+### Test the deployed docker application
+
+    ```bash
+        curl -X POST "http://127.0.0.1:8000/predict-breed" \
+            -H "Content-Type: application/json" \
+            -d '{"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/1600px-Cute_dog.jpg"}'
+        curl -X POST "http://127.0.0.1:8000/predict-breed" \
+            -H "Content-Type: application/json" \
+            -d '{"url": "https://images.unsplash.com/photo-1507146426996-ef05306b995a""}'
+
+  - For Windows use this in case of trouble with curl
+    
+    ```bash
+        Invoke-RestMethod -Uri "http://127.0.0.1:8000/predict-breed" -Method Post -Body '{"url": "https://images.unsplash.com/photo-1507146426996-ef05306b995a"}' -ContentType "application/json"
+        Invoke-RestMethod -Uri "http://127.0.0.1:8000/predict-breed" -Method Post -Body '{"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/1600px-Cute_dog.jpg"}' -ContentType "application/json"
+        
+          
 ## Dataset
 
 - **Source Dataset:** Stanford Dogs Dataset
 - **Description:** The dataset includes a variety of dog breeds represented with numerous images for each breed. The dataset is prepared by splitting the data into training and validation sets in a reproducible manner using Python scripts.
 
-## Environment Setup
-
-To run this project, you'll need to set up your environment as follows:
-
-1. **Ensure Python 3.11+ is Installed**
-   - Verify Python version:
-     ```bash
-     python --version
-     ```
-
-2. **Clone the GitHub Repository**
-   - Clone the repository to your local machine:
-     ```bash
-     git clone https://github.com/yourusername/dog-breed-classification.git
-     ```
-
-3. **Install Python Dependencies**
-   - Use pip to install necessary packages:
-     ```bash
-     pip install -r requirements.txt
-     ```
 
 ## Usage
 
@@ -107,18 +140,3 @@ The API leverages FastAPI to predict dog breeds from image URLs.
 - **Load Image From URL**: Converts image URLs into pre-processed NumPy arrays for model predictions.
 - **Predict Breed**: Returns predicted dog breed based on model inference.
 
-### Example Request
-
-To predict a dog breed, send a POST request to `/predict-breed` with the image URL included in the request body.
-
-This setup ensures efficient and scalable deployment of the dog breed classification service, enabling accurate real-time predictions.
-
-    ```bash
-    docker build -t capstone2/aj-fastapi-app .
-    docker run -d -p 8000:8000 capstone2/aj-fastapi-app:latest
-    curl -X POST "http://127.0.0.1:8000/predict-breed" \
-        -H "Content-Type: application/json" \
-        -d '{"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/1600px-Cute_dog.jpg"}'
-    curl -X POST "http://127.0.0.1:8000/predict-breed" \
-        -H "Content-Type: application/json" \
-        -d '{"url": "https://images.unsplash.com/photo-1507146426996-ef05306b995a""}'
