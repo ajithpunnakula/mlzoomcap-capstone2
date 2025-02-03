@@ -1,0 +1,10 @@
+tensorflow
+ipython
+tqdm
+numpy
+Pillow
+matplotlib
+scipy
+fastapi
+uvicorn
+requests

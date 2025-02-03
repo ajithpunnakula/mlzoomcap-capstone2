@@ -1,11 +1,70 @@
+# %%
+import os
+import random
+import shutil
+from tqdm import tqdm
+
+# Set random seed for reproducibility
+random.seed(42)
+
+# Source directory
+data_dir = './stanford-dogs-dataset-copy'
+
+# Directories for train and validation splits
+train_dir = os.path.join(data_dir, 'train')
+validation_dir = os.path.join(data_dir, 'validation')
+
+# Create train and validation directories if they do not exist
+os.makedirs(train_dir, exist_ok=True)
+os.makedirs(validation_dir, exist_ok=True)
+
+# Fraction of data to be used for validation
+validation_fraction = 0.2
+
+# Loop through each breed directory, excluding 'train' and 'validation'
+for breed_dir in tqdm(os.listdir(data_dir)):
+    breed_path = os.path.join(data_dir, breed_dir)
+
+    # Skip 'train' and 'validation' directories themselves
+    if not os.path.isdir(breed_path) or breed_dir in ['train', 'validation']:
+        continue
+
+    # List all image files
+    images = os.listdir(breed_path)
+    random.shuffle(images)
+
+    # Determine split index
+    split_index = int(len(images) * (1 - validation_fraction))
+
+    # Split images
+    train_images = images[:split_index]
+    validation_images = images[split_index:]
+
+    # Create directories for the current breed
+    train_breed_dir = os.path.join(train_dir, breed_dir)
+    validation_breed_dir = os.path.join(validation_dir, breed_dir)
+    os.makedirs(train_breed_dir, exist_ok=True)
+    os.makedirs(validation_breed_dir, exist_ok=True)
+
+    # Move files
+    for img in train_images:
+        shutil.move(os.path.join(breed_path, img), train_breed_dir)
+
+    for img in validation_images:
+        shutil.move(os.path.join(breed_path, img), validation_breed_dir)
+
+    # Remove the now-empty breed directory
+    os.rmdir(breed_path)
+
+# %%
 # data preparation
 
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator  
 
 # Set the path to the dataset
-train_dir = '/Users/apunnakula/AJ/mlzoomcap-capstone2/stanford-dogs-dataset-copy/train'
-validation_dir = '/Users/apunnakula/AJ/mlzoomcap-capstone2/stanford-dogs-dataset-copy/validation'
+train_dir = './stanford-dogs-dataset-copy/train'
+validation_dir = './stanford-dogs-dataset-copy/validation'
 
 # Data augmentation and normalization for training
 train_datagen = ImageDataGenerator(
@@ -35,7 +94,13 @@ validation_generator = validation_datagen.flow_from_directory(
     class_mode='categorical'
 )
 
+import json
+# Once train_generator is created
+class_indices = train_generator.class_indices
+with open('class_indices.json', 'w') as f:
+    json.dump(class_indices, f)
 
+# %%
 # model selection and training
 
 from tensorflow.keras.applications import VGG16, ResNet50, MobileNetV2
@@ -103,3 +168,6 @@ for model_name in model_names:
 # Find the best model
 best_model_index = np.argmax(val_accuracies)
 print(f'The best model is {model_names[best_model_index]} with an accuracy of {val_accuracies[best_model_index]}')
+
+
+
