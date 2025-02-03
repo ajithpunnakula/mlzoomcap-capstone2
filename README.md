@@ -56,32 +56,34 @@ To run this project, you'll need to set up your environment as follows:
 There are two ways to test the model deployed in Docker application
 
 1. Run the python file test.py
-```bash
-    python test.py
-```
+    ```bash
+        python test.py
+    ```
 This tests the dog breed of this image - *https://images.unsplash.com/photo-1507146426996-ef05306b995a*
 
 2. Run the following command to test the deployed Docker application:
 
-```bash
-curl -X POST "http://127.0.0.1:8000/predict-breed" \
-    -H "Content-Type: application/json" \
-    -d '{"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/1600px-Cute_dog.jpg"}'
+    ```bash
+    curl -X POST "http://127.0.0.1:8000/predict-breed" \
+        -H "Content-Type: application/json" \
+        -d '{"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/1600px-Cute_dog.jpg"}'
 
 
-curl -X POST "http://127.0.0.1:8000/predict-breed" \
-    -H "Content-Type: application/json" \
-    -d '{"url": "https://images.unsplash.com/photo-1507146426996-ef05306b995a"}'
-```
-For Windows, use the following in case of trouble with curl:
-```bash
-Invoke-RestMethod -Uri "http://127.0.0.1:8000/predict-breed" -Method Post -Body '{"url": "https://images.unsplash.com/photo-1507146426996-ef05306b995a"}' -ContentType "application/json"
-  
+    curl -X POST "http://127.0.0.1:8000/predict-breed" \
+        -H "Content-Type: application/json" \
+        -d '{"url": "https://images.unsplash.com/photo-1507146426996-ef05306b995a"}'
+    ```
 
-Invoke-RestMethod -Uri "http://127.0.0.1:8000/predict-breed" -Method Post -Body '{"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/1600px-Cute_dog.jpg"}' -ContentType "application/json"
-```
 
-          
+   For Windows, use the following in case of trouble with `curl`:
+
+   ```bash
+   Invoke-RestMethod -Uri "http://127.0.0.1:8000/predict-breed" -Method Post -Body '{"url": "https://images.unsplash.com/photo-1507146426996-ef05306b995a"}' -ContentType "application/json"
+
+   Invoke-RestMethod -Uri "http://127.0.0.1:8000/predict-breed" -Method Post -Body '{"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/1600px-Cute_dog.jpg"}' -ContentType "application/json"
+   ```
+
+
 ## Dataset
 
 - **Source Dataset:** [Stanford Dogs Dataset](https://www.kaggle.com/datasets/jessicali9530/stanford-dogs-dataset)
@@ -169,11 +171,11 @@ Three different models were trained and evaluated:
 
 The performance of each model was measured using validation loss and validation accuracy.
 
-| Model        | Validation Loss | Validation Accuracy |
-|--------------|-----------------|---------------------|
-| VGG16        | 3.1033          | 0.2556              |
-| ResNet50     | 4.7058          | 0.0209              |
-| MobileNetV2  | **2.2696**      | **0.4476**          |
+  | Model        | Validation Loss | Validation Accuracy |
+  |--------------|-----------------|---------------------|
+  | VGG16        | 3.1033          | 0.2556              |
+  | ResNet50     | 4.7058          | 0.0209              |
+  | MobileNetV2  | **2.2696**      | **0.4476**          |
 
 ### Best Model
 
