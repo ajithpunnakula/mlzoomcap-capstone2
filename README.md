@@ -10,12 +10,13 @@ This project aims to classify dog breeds using a predefined dataset with images 
 
 To run this project, you'll need to set up your environment as follows:
 
-1. **Ensure Python 3.11.* is Installed** 
-   - Verify Python version:
-     ```bash
-     python --version
-     ```
-  Note: if running on mac, python 3.12 does not work please use python 3.11 to test this
+1. **Ensure Python 3.11.x is Installed**
+
+    - Verify Python version
+        ```bash
+      python --version
+        ```
+      *Note: if running on mac, python 3.12 does not work please use python 3.11 to test this*
 
 2. **Clone the GitHub Repository**
    - Clone the repository to your local machine:
@@ -24,39 +25,50 @@ To run this project, you'll need to set up your environment as follows:
      ```
 
 3. **Install Python Dependencies**
-   - Use pip to install necessary packages:
-      Mac/Linux: 
+   
+   Use pip to install necessary packages:
+    - Mac/Linux: 
         ```bash
-              pip install -r requirements.txt
-        
-      Windows:
+      pip install -r requirements.txt
+        ```
+      
+    - Windows:
+
       ```bash
-            pip install -r requirements_windows.txt
-            
+        pip install -r requirements_windows.txt
+      ```    
 
-### how to build the docker image
-- To build docker image locally and test above use
+### Build Docker Image
 
-    ```bash
-        docker build -t capstone2/aj-fastapi-app .
-        docker run -d -p 8000:8000 capstone2/aj-fastapi-app:latest
+Run this command to build a Docker image:
 
-### Test the deployed docker application
+```bash
+docker build -t capstone2/aj-fastapi-app .
+docker run -d -p 8000:8000 capstone2/aj-fastapi-app:latest
+```
 
-    ```bash
-        curl -X POST "http://127.0.0.1:8000/predict-breed" \
-            -H "Content-Type: application/json" \
-            -d '{"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/1600px-Cute_dog.jpg"}'
-        curl -X POST "http://127.0.0.1:8000/predict-breed" \
-            -H "Content-Type: application/json" \
-            -d '{"url": "https://images.unsplash.com/photo-1507146426996-ef05306b995a""}'
+### Test the Deployed Docker Application
 
-  - For Windows use this in case of trouble with curl
-    
-    ```bash
-        Invoke-RestMethod -Uri "http://127.0.0.1:8000/predict-breed" -Method Post -Body '{"url": "https://images.unsplash.com/photo-1507146426996-ef05306b995a"}' -ContentType "application/json"
-        Invoke-RestMethod -Uri "http://127.0.0.1:8000/predict-breed" -Method Post -Body '{"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/1600px-Cute_dog.jpg"}' -ContentType "application/json"
-        
+Run the following command to test the deployed Docker application:
+
+```bash
+curl -X POST "http://127.0.0.1:8000/predict-breed" \
+    -H "Content-Type: application/json" \
+    -d '{"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/1600px-Cute_dog.jpg"}'
+
+
+curl -X POST "http://127.0.0.1:8000/predict-breed" \
+    -H "Content-Type: application/json" \
+    -d '{"url": "https://images.unsplash.com/photo-1507146426996-ef05306b995a"}'
+```
+For Windows, use the following in case of trouble with curl:
+```bash
+Invoke-RestMethod -Uri "http://127.0.0.1:8000/predict-breed" -Method Post -Body '{"url": "https://images.unsplash.com/photo-1507146426996-ef05306b995a"}' -ContentType "application/json"
+
+
+Invoke-RestMethod -Uri "http://127.0.0.1:8000/predict-breed" -Method Post -Body '{"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/1600px-Cute_dog.jpg"}' -ContentType "application/json"
+```
+
           
 ## Dataset
 
